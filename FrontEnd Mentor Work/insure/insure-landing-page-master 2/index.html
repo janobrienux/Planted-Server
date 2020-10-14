@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <link href="./css/styles.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
 
-    <title>Frontend Mentor | Insure landing page</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
 
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  </head>
-  <body>
-    <!--Navigation-->
-    <nav>
-      <div class="logo-container">
-        <a href="#"><img class="logo" src="./images/logo.svg" alt="logo"></a>
-      </div>
-      <div>
-        <a href="#" id="toggle-button" class="toggle-button">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </a>
-        <ul class="navbar_desktop">
-          <li><a href="#">HOW WE WORK</a></li>
-          <li><a href="#">BLOG</a></li>
-          <li><a href="#">ACCOUNT</a></li>
-          <button>
-            <li><a href="#">VIEW PLANS</a></li>
-          </button>
-        </ul>
-      </div>
-    </nav>
-    <img src="./images/image-intro-mobile.jpg" alt="" />
-    <!--Hero Section-->
-    <div class="mission">
-      <h1>Humanizing your insurance.</h1>
-      <p>
-        Get your life insrane coverage easier and faster. We blend our expertise and technology to help you find the
-        plan that's right for you. Ensure you and your loved ones are protected.
-      </p>
-      <button>View Plans</button>
+  <title>Frontend Mentor | Insure landing page</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+      position: absolute;
+      width: 100%;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo-container">
+      <a href="#"><img class="logo" src="./images/logo.svg" alt="logo"></a>
     </div>
-    <!--Offers-->
-    <div class="difference">
-      <h1>We're different</h1>
+    <div class="nav-button">
+      <div class="hamburger-line top"></div>
+      <div class="hamburger-line middle"></div>
+      <div class="hamburger-line bottom"></div>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="#">HOW WE WORK</a></li>
+      <li><a href="#">BLOG</a></li>
+      <li><a href="#">ACCOUNT</a></li>
+      <li><a href="#">VIEW PLANS</a></li>
+    </ul>
+  </nav>
+
+  <img class="mobile-img" src='./images/image-intro-mobile.jpg' alt="mobile-header">
+
+  <main class="flex main-wrapper">
+    <div class='intro-bg'></div>
+    <section class="intro-wrapper flex">
+      <div class="intro-text-container flex">
+        <h1 class="heading-font">Humanizing your insurance.</h1>
+        <p>Get your life insurance coverage easier and faster. We blend our expertise
+          and technology to help you find the plan that’s right for you. Ensure you
+          and your loved ones are protected.</p>
+        <a class="button-style" href="#">VIEW PLANS</a>
+      </div>
+      <img class="desktop-img" src='./images/image-intro-desktop.jpg' alt="desktop-header">
+    </section>
+    <section class="details-wrapper">
+      <h2 class="heading-font">We're different</h2>
       <ul>
         <li>
           <div><img src="./images/icon-snappy-process.svg" alt="process" /></div>
@@ -66,71 +79,79 @@
             sure you’re covered when you need it.</p>
         </li>
       </ul>
-    </div>
+
+    </section>
+
     <section class="how-we-work flex">
       <h1 class="heading-font">Find out more about how we work</h1>
       <a class="button-style" href="#">HOW WE WORK</a>
     </section>
-    <!--Footer-->
-    <footer>
-      <div class="flex">
-        <a href="#"><img src="./images/logo.svg" alt="logo" /></a>
-        <ul class="social flex">
-          <li>
-            <a href="#"><img src="./images/icon-facebook.svg" alt="facebook" /></a>
-          </li>
-          <li>
-            <a href="#"><img src="./images/icon-twitter.svg" alt="twitter" /></a>
-          </li>
-          <li>
-            <a href="#"><img src="./images/icon-pinterest.svg" alt="pinterest" /></a>
-          </li>
-          <li>
-            <a href="#"><img src="./images/icon-instagram.svg" alt="instagram" /></a>
-          </li>
-        </ul>
-      </div>
-  
-      <ul class="footer-links">
+  </main>
+  <footer>
+    <div class="flex">
+      <a href="#"><img src="./images/logo.svg" alt="logo" /></a>
+      <ul class="social flex">
         <li>
-          <span class="footer-link-title">OUR COMPANY</span>
-          <ul>
-            <li><a href="#">HOW WE WORK</a></li>
-            <li><a href="#">WHY INSURE?</a></li>
-            <li><a href="#">VIEW PLANS</a></li>
-            <li><a href="#">REVIEWS</a></li>
-          </ul>
+          <a href="#"><img src="./images/icon-facebook.svg" alt="facebook" /></a>
         </li>
         <li>
-          <span class="footer-link-title">HELP ME</span>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">TERMS OF USE</a></li>
-            <li><a href="#">PRIVACY POLICY</a></li>
-            <li><a href="#">COOKIES</a></li>
-          </ul>
+          <a href="#"><img src="./images/icon-twitter.svg" alt="twitter" /></a>
         </li>
         <li>
-          <span class="footer-link-title">CONTACT</span>
-          <ul>
-            <li><a href="#">SALES</a></li>
-            <li><a href="#">SUPPORT</a></li>
-            <li><a href="#">LIVE CHAT</a></li>
-          </ul>
+          <a href="#"><img src="./images/icon-pinterest.svg" alt="pinterest" /></a>
         </li>
         <li>
-          <span class="footer-link-title">OTHERS</span>
-          <ul>
-            <li><a href="#">CAREERS</a></li>
-            <li><a href="#">PRESS</a></li>
-            <li><a href="#">LICENSES</a></li>
-          </ul>
+          <a href="#"><img src="./images/icon-instagram.svg" alt="instagram" /></a>
         </li>
       </ul>
-    </footer>
-    <div class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by
-      <a href="#">January O'Brien</a>
     </div>
-  </body>
+
+    <ul class="footer-links">
+      <li>
+        <span class="footer-link-title">OUR COMPANY</span>
+        <ul>
+          <li><a href="#">HOW WE WORK</a></li>
+          <li><a href="#">WHY INSURE?</a></li>
+          <li><a href="#">VIEW PLANS</a></li>
+          <li><a href="#">REVIEWS</a></li>
+        </ul>
+      </li>
+      <li>
+        <span class="footer-link-title">HELP ME</span>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">TERMS OF USE</a></li>
+          <li><a href="#">PRIVACY POLICY</a></li>
+          <li><a href="#">COOKIES</a></li>
+        </ul>
+      </li>
+      <li>
+        <span class="footer-link-title">CONTACT</span>
+        <ul>
+          <li><a href="#">SALES</a></li>
+          <li><a href="#">SUPPORT</a></li>
+          <li><a href="#">LIVE CHAT</a></li>
+        </ul>
+      </li>
+      <li>
+        <span class="footer-link-title">OTHERS</span>
+        <ul>
+          <li><a href="#">CAREERS</a></li>
+          <li><a href="#">PRESS</a></li>
+          <li><a href="#">LICENSES</a></li>
+        </ul>
+      </li>
+    </ul>
+  </footer>
+
+
+
+  <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">January O'Brien</a>
+  </div> -->
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="index.js"></script>
+
 </html>
