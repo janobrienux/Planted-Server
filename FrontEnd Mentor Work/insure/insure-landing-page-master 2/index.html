@@ -11,39 +11,29 @@
   <title>Frontend Mentor | Insure landing page</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution {
-      font-size: 11px;
-      text-align: center;
-      position: absolute;
-      width: 100%;
-    }
 
-    .attribution a {
-      color: hsl(228, 45%, 44%);
-    }
-  </style>
 </head>
 
 <body>
-  <nav>
+  <!-- Header -->
+  <nav class="flex">
     <div class="logo-container">
       <a href="#"><img class="logo" src="./images/logo.svg" alt="logo"></a>
     </div>
-    <div class="nav-button">
+    <div class="nav-button flex">
       <div class="hamburger-line top"></div>
       <div class="hamburger-line middle"></div>
       <div class="hamburger-line bottom"></div>
     </div>
-    <ul class="nav-menu">
+    <ul class="nav-menu flex">
       <li><a href="#">HOW WE WORK</a></li>
       <li><a href="#">BLOG</a></li>
       <li><a href="#">ACCOUNT</a></li>
       <li><a href="#">VIEW PLANS</a></li>
     </ul>
   </nav>
-
-  <img class="mobile-img" src='./images/image-intro-mobile.jpg' alt="mobile-header">
+<!-- Intro section -->
+  <img class="mobile-img flex" src='./images/image-intro-mobile.jpg' alt="mobile-header">
 
   <main class="flex main-wrapper">
     <div class='intro-bg'></div>
@@ -57,6 +47,7 @@
       </div>
       <img class="desktop-img" src='./images/image-intro-desktop.jpg' alt="desktop-header">
     </section>
+    <!-- Details section -->
     <section class="details-wrapper">
       <h2 class="heading-font">We're different</h2>
       <ul>
@@ -81,7 +72,7 @@
       </ul>
 
     </section>
-
+<!-- Footer -->
     <section class="how-we-work flex">
       <h1 class="heading-font">Find out more about how we work</h1>
       <a class="button-style" href="#">HOW WE WORK</a>
@@ -138,7 +129,7 @@
         <ul>
           <li><a href="#">CAREERS</a></li>
           <li><a href="#">PRESS</a></li>
-          <li><a href="#">LICENSES</a></li>
+          <li><a href="#">LICENSES --></a></li>
         </ul>
       </li>
     </ul>
@@ -146,10 +137,10 @@
 
 
 
-  <!-- <div class="attribution">
+  <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="#">January O'Brien</a>
-  </div> -->
+  </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="index.js"></script>

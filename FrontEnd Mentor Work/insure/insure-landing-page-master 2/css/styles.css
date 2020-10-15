@@ -1,4 +1,4 @@
-/* No CSS */ /*# sourceMappingURL=styles.css.map */
+
 
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Karla:wght@400;700&display=swap");
 
@@ -7,6 +7,17 @@
 
 * {
   box-sizing: border-box;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }
 
 html,
@@ -368,8 +379,8 @@ footer div:nth-child(1):after {
 
   .intro-bg {
     z-index: 1;
-    background-image: url("./images/bg-pattern-intro-left-desktop.svg"),
-      url("./images/bg-pattern-intro-right-desktop.svg");
+    background-image: url("../images/bg-pattern-footer-desktop.svg"),
+      url("../images/bg-pattern-intro-right-desktop.svg");
     background-position: bottom left, top right;
   }
 
@@ -438,7 +449,7 @@ footer div:nth-child(1):after {
     margin: 0px 10%;
     width: auto;
     height: 250px;
-    background-image: url("./images/bg-pattern-how-we-work-desktop.svg");
+    background-image: url("../images/bg-pattern-how-we-work-desktop.svg");
     flex-direction: row;
     padding: 5%;
     justify-content: space-between;
@@ -455,7 +466,7 @@ footer div:nth-child(1):after {
 
   footer {
     padding: 5%;
-    background-image: url("./images/bg-pattern-footer-desktop.svg");
+    background-image: url("../images/bg-pattern-footer-desktop.svg");
   }
 
   footer div {
