@@ -1,3 +1,4 @@
+const sequelize = require('sequelize');
 const User = require('./user');
 const Plants = require('./plants');
 const Comments = require('./comments');

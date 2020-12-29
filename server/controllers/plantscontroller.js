@@ -69,31 +69,11 @@ router.get('/userplants', validateSession, async (req, res) => {
 })
 
 
-router.get('/:plantName', validateSession, async (req, res) => {
-  try {
-      let plantName = req.params.plantName
-      let plantByName = await Plant.findAll({
-          where: { plantName: plantName },
-          include: ['user', 'plants']
-      })
-      res.status(200).json({
-          plantByName: plantByName,
-          message: `${plantName} was found`
-      })
-  } catch (error) {
-      res.status(500).json({
-          error: error,
-          message: 'Plant not found!'
-      })
-  }
-})
-
-router.put('/:id', validateSession, async (req, res) => {
-  try {
+router.put('/update/:id', (req, res) => {
       const query = req.params.id;
-      await Plants.update(req.body, { where: { id: query } })
+       Plants.update(req.body, { where: { id: query } })
           .then((plantUpdated) => {
-              Plant.findOne({ where: { id: query } }).then((locatedUpdatedPlant) => {
+              Plants.findOne({ where: { id: query } }).then((locatedUpdatedPlant) => {
                   res.status(200).json({
                       editedPlant: locatedUpdatedPlant,
                       message: 'Plant Updated!',
@@ -101,11 +81,11 @@ router.put('/:id', validateSession, async (req, res) => {
                   })
               })
           })
-  } catch (error) {
+   .catch((error) =>
       res.status(500).json({
-          error: error
-      })
-  }
+          error: error.message || serverErrorMsg
+      }))
+  
 })
 
 router.delete('/:id', validateSession, async (req, res) => {
