@@ -1,24 +1,44 @@
 const { Router } = require("express");
-const multer = require('multer');
-const upload = multer({dest: 'uploads'})
-const { Plants }  = require('../models');
+const  Plants   = require('../models/plants');
 const validateSession = require('../middleware/validateSession');
 const router = Router()
 
-// router.post('/create', validateSession, async (req, res) => {
-//   let newPlant = {plantName,plantImg, temperature, waterFrequency, lastWatering, isThriving, userID} = req.body.plant;
-// try{
-//   const newPlant = {}
+//IMAGE UPLOADING
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3');
+const multer = require('multer');
+const path = require('path');
 
-// }
+var s3 = new AWS.S3({
+    accessKeyId :  process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    bucket: process.env.bucket
+});
 
-// })
+let imgUpload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'plantedbucket',
+        //acl: 'public-read',
+        metadata: function (req, file, cb) {
+          cb(null, { fieldName: file.fieldname });
+        },
+        // key: function (req, file, cb) {
+        //     cb(null, path.basename(file.originalname, path.extname(file.originalname)) + '-' + Date.now() + path.extname(file.originalname))
+        // }
+        key: function (req, file, cb) {
+            cb(null, Date.now() + '-' + file.originalname)
+        }
+    })
+})
 
-router.post('/create', validateSession, async (req, res) => {
+
+
+router.post('/create',validateSession,  imgUpload.single('image'), async (req, res) => {
   const { plantName, plantImg, temperature, waterFrequency, lastWatering, isThriving } = req.body;
   try {
   
-  let newPlant =  await Plants.create({plantName, plantImg, temperature, waterFrequency, lastWatering, isThriving, userId: req.user.id })
+  let newPlant =  await Plants.create({plantName, plantImg: req.file.location, temperature, waterFrequency, lastWatering, isThriving, userId: req.user.id })
 
 
       res.status(200).json({
@@ -37,38 +57,24 @@ router.get('/userplants', validateSession, async (req, res) => {
   try {
       let userId = req.user.id
       let userPlants = await Plants.findAll({
-          where: { userId: userId },
-          include: ['user', 'plants']
+          where: { userId: userId }
       })
       res.status(200).json({
           userPlants: userPlants,
           message: 'Found all users plants!'
       })
   } catch (error) {
-      res.status(500).json({ error: err })
+      res.status(500).json({ error: error })
   }
 })
 
-router.get('/allplants', async (req, res) => {
-  try {
-      let allPlants = await Plants.findAll({
-          include: 'user'
-      })
-      res.status(200).json({
-          allPlant: allPlant,
-          message: 'All Plants Found'
-      })
-  } catch (error) {
-      res.status(200).json({ error: err })
-  }
-})
 
 router.get('/:plantName', validateSession, async (req, res) => {
   try {
       let plantName = req.params.plantName
       let plantByName = await Plant.findAll({
           where: { plantName: plantName },
-          include: 'user'
+          include: ['user', 'plants']
       })
       res.status(200).json({
           plantByName: plantByName,
@@ -76,7 +82,7 @@ router.get('/:plantName', validateSession, async (req, res) => {
       })
   } catch (error) {
       res.status(500).json({
-          error: err,
+          error: error,
           message: 'Plant not found!'
       })
   }
