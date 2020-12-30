@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use("/user", controllers.usercontroller);
 app.use("/plants", controllers.plantscontroller);
+app.use("/comments", controllers.commentscontroller);
 
 db.authenticate()
   .then(() => db.sync())
