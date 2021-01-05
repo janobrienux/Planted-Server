@@ -54,6 +54,7 @@ router.post('/create',validateSession,  imgUpload.single('image'), async (req, r
 })
 
 router.get('/userplants', validateSession, async (req, res) => {
+
   try {
       let userId = req.user.id
       let userPlants = await Plants.findAll({
@@ -87,6 +88,48 @@ router.put('/update/:id', (req, res) => {
       }))
   
 })
+
+router.get('/plants', (req, res) => {
+  
+    if (permission.granted && req.user.userRole === 'admin') {
+      Plants.findAll()
+        .then(plants => {
+          if (plants) {
+            res.status(200).json({ order, message: 'All Plants Found' });
+          } else {
+            res.status(500).json({ message: 'No plants found' });
+          }
+        })
+        .catch(err =>
+          res
+            .status(500)
+            .json({ error: err, message: 'the findAll did not work' })
+        );
+    } else if (req.user.userRole === 'user') {
+      //this will make it so the customer can only see their own orders
+      const query = { where: { user_ID: req.user.id } };
+      Order.findAll(query)
+        .then(order => {
+          console.log('Plant Name===>', plants);
+          if (plants.length > 0) {
+            res
+              .status(200)
+              .json({ plants, message: 'Here are all of YOUR plants' });
+          } else {
+            console.log('this');
+            res.status(500).json({ message: "You don't have any plants" });
+          }
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err, message: "Opps, couldn't find all of your plants" });
+        });
+    } else {
+      res.status(500).json({ message: "Oh, you can't see that" });
+    }
+  });
+
 
 router.delete('/:id', validateSession, async (req, res) => {
   try {
