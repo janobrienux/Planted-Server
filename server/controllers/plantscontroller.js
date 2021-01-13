@@ -19,7 +19,7 @@ let imgUpload = multer({
     storage: multerS3({
         s3: s3,
         bucket: 'plantedbucket',
-        //acl: 'public-read',
+        acl: 'public-read',
         metadata: function (req, file, cb) {
           cb(null, { fieldName: file.fieldname });
         },
@@ -38,7 +38,11 @@ router.post('/create',validateSession,  imgUpload.single('image'), async (req, r
   const { plantName, plantImg, temperature, waterFrequency, lastWatering, isThriving } = req.body;
   try {
   
-  let newPlant =  await Plants.create({plantName, plantImg: req.file.location, temperature, waterFrequency, lastWatering, isThriving, userId: req.user.id })
+  let newPlant =  await Plants.create({plantName,
+      plantImg: req.file.location,
+      temperature, waterFrequency, 
+      lastWatering, isThriving,
+       userId: req.user.id })
 
 
       res.status(200).json({
@@ -90,12 +94,10 @@ router.put('/update/:id', (req, res) => {
 })
 
 router.get('/plants', (req, res) => {
-  
-    if (permission.granted && req.user.userRole === 'admin') {
       Plants.findAll()
         .then(plants => {
           if (plants) {
-            res.status(200).json({ order, message: 'All Plants Found' });
+            res.status(200).json({ plants, message: 'All Plants Found' });
           } else {
             res.status(500).json({ message: 'No plants found' });
           }
@@ -105,29 +107,14 @@ router.get('/plants', (req, res) => {
             .status(500)
             .json({ error: err, message: 'the findAll did not work' })
         );
-    } else if (req.user.userRole === 'user') {
-      //this will make it so the customer can only see their own orders
-      const query = { where: { user_ID: req.user.id } };
-      Order.findAll(query)
-        .then(order => {
-          console.log('Plant Name===>', plants);
-          if (plants.length > 0) {
-            res
-              .status(200)
-              .json({ plants, message: 'Here are all of YOUR plants' });
-          } else {
-            console.log('this');
-            res.status(500).json({ message: "You don't have any plants" });
-          }
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err, message: "Opps, couldn't find all of your plants" });
-        });
-    } else {
-      res.status(500).json({ message: "Oh, you can't see that" });
-    }
+      //this will make it so the user can only see their own plants
+      // {
+      //   userData.userRole == 'admin' ? (
+      //     <button>Delete</button>
+      //   ) : (
+      //     ""
+      //   )
+      // }
   });
 
 

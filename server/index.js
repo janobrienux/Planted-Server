@@ -8,6 +8,10 @@ const controllers = require("./controllers");
 app.use(require("./middleware/headers"));
 
 app.use(express.json());
+bodyParser = {
+  json: {limit: '50mb', extended: true},
+  urlencoded: {limit: '50mb', extended: true}
+};
 
 app.use("/user", controllers.usercontroller);
 app.use("/plants", controllers.plantscontroller);
