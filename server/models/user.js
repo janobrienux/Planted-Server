@@ -27,9 +27,12 @@ const db = require("../db");
           defaultImg: "",
           unique: false
       },
-      admin: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true,
+      userRole: {
+        type: DataTypes.ENUM(
+          'user',
+          'admin'
+        ),
+        allowNull: false
       }
   });
  module.exports = User;

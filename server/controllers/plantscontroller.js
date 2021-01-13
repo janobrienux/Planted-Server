@@ -19,7 +19,7 @@ let imgUpload = multer({
     storage: multerS3({
         s3: s3,
         bucket: 'plantedbucket',
-        //acl: 'public-read',
+        acl: 'public-read',
         metadata: function (req, file, cb) {
           cb(null, { fieldName: file.fieldname });
         },
@@ -38,7 +38,11 @@ router.post('/create',validateSession,  imgUpload.single('image'), async (req, r
   const { plantName, plantImg, temperature, waterFrequency, lastWatering, isThriving } = req.body;
   try {
   
-  let newPlant =  await Plants.create({plantName, plantImg: req.file.location, temperature, waterFrequency, lastWatering, isThriving, userId: req.user.id })
+  let newPlant =  await Plants.create({plantName,
+      plantImg: req.file.location,
+      temperature, waterFrequency, 
+      lastWatering, isThriving,
+       userId: req.user.id })
 
 
       res.status(200).json({
@@ -54,6 +58,7 @@ router.post('/create',validateSession,  imgUpload.single('image'), async (req, r
 })
 
 router.get('/userplants', validateSession, async (req, res) => {
+
   try {
       let userId = req.user.id
       let userPlants = await Plants.findAll({
@@ -87,6 +92,31 @@ router.put('/update/:id', (req, res) => {
       }))
   
 })
+
+router.get('/plants', (req, res) => {
+      Plants.findAll()
+        .then(plants => {
+          if (plants) {
+            res.status(200).json({ plants, message: 'All Plants Found' });
+          } else {
+            res.status(500).json({ message: 'No plants found' });
+          }
+        })
+        .catch(err =>
+          res
+            .status(500)
+            .json({ error: err, message: 'the findAll did not work' })
+        );
+      //this will make it so the user can only see their own plants
+      // {
+      //   userData.userRole == 'admin' ? (
+      //     <button>Delete</button>
+      //   ) : (
+      //     ""
+      //   )
+      // }
+  });
+
 
 router.delete('/:id', validateSession, async (req, res) => {
   try {
