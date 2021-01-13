@@ -5,10 +5,41 @@ const jwt = require('jsonwebtoken');
 const { UniqueConstraintError } = require('sequelize/lib/errors');
 const router = Router();
 
+//IMAGE UPLOADING
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3');
+const multer = require('multer');
+const path = require('path');
+
+var s3 = new AWS.S3({
+    accessKeyId :  process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    bucket: process.env.bucket
+});
+
+let imgUpload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'plantedbucket',
+        //acl: 'public-read',
+        metadata: function (req, file, cb) {
+          cb(null, { fieldName: file.fieldname });
+        },
+     
+        key: function (req, file, cb) {
+            cb(null, Date.now() + '-' + file.originalname)
+        }
+    })
+})
 
 
 router.post('/register', async (req, res) => {
   let { firstName, lastName, email, password, profileImg, userRole } = req.body;
+
+
+router.post('/register', imgUpload.single('image'), async (req, res) => {
+  let { firstName, lastName, email, password, profileImg, admin } = req.body.user;
+
 
     try {
         const newUser = await User.create({
@@ -16,8 +47,13 @@ router.post('/register', async (req, res) => {
             lastName,
             email,
             password: bcrypt.hashSync(password, 13),
+
             profileImg,
             userRole,
+
+            profileImg: req.file.location,
+            admin
+
         })
         const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 })
         res.status(201).json({
