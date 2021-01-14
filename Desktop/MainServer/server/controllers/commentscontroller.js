@@ -78,12 +78,19 @@ router.put("/update/:entryId", validateSession, function (req, res) {
 
 // DELETE COMMENTS
 
-router.delete("/delete/:id", validateSession, function (req, res) {
-  const query = { where: { id: req.params.id, owner: req.user.id } };
+// router.delete("/delete/:id", validateSession, function (req, res) {
+//   const query = { where: { id: req.params.id, owner: req.user.id } };
 
-  Comment.destroy(query)
-    .then(() => res.status(200).json({ message: "Comment has been deleted!" }))
+//   Comment.destroy(query)
+//     .then(() => res.status(200).json({ message: "Comment has been deleted!" }))
+//     .catch((err) => res.status(500).json({ error: err }));
+// });
+
+router.delete("/:id", validateSession, function (req, res) {
+  const query = { where: { id: req.params.id, userId: req.user.id } };
+
+  Comments.destroy(query)
+    .then(() => res.status(200).json({ message: "Comment has been Removed " }))
     .catch((err) => res.status(500).json({ error: err }));
 });
-
 module.exports = router;
